@@ -1,43 +1,47 @@
 # Dirtree
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/dirtree`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Dirtree visualizes an list of file paths into a tree graph, printed as HTML page, it can be useful in visualizing a whole project you're working on to start cleanup or organizing your code or spotting large directories or unneeded files.
 
 ## Installation
 
-Add this line to your application's Gemfile:
-
-```ruby
-gem 'dirtree'
-```
-
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
 
     $ gem install dirtree
 
 ## Usage
 
-TODO: Write usage instructions here
+    Usage: dirtree [options]... [file]...
+        -v, --version                    Print version
+        -h, --help                       Show this help text
+        -o, --output=File.html           Specify a path to write output, if not specified output will be printed to STDOUT
 
-## Development
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+### Visualize current directory recursively
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+    $ dirtree -o output.html **/* *
+
+### Visualize files from git ls
+
+    $ git ls-files | dirtree -o output.html
+
+### Dirtree prints to standard output if no --output option specified so you can redirect it
+
+    $ git ls-files | dirtree > output.html
+
+### visualize only files that include specific word
+
+    $ git ls-files | grep keyword | dirtree > output.html
+
+### works with find
+
+visulaize all files that ends with `rb`
+
+    $ find ~ -name *rb | dirtree > output.html
+
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/dirtree. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+Bug reports and pull requests are welcome on GitHub at https://github.com/blazeeboy/dirtree.
 
 ## License
 
 The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
-
-## Code of Conduct
-
-Everyone interacting in the Dirtree project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/dirtree/blob/master/CODE_OF_CONDUCT.md).
