@@ -21,6 +21,10 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
 
     $ dirtree -o output.html **/* *
 
+make sure you have `globstar` on
+
+    $ shopt -s globstar
+
 ### Visualize files from git ls
 
     $ git ls-files | dirtree -o output.html
