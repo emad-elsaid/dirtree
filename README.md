@@ -19,31 +19,44 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
         -o, --output=File.html           Specify a path to write output, if not specified output will be printed to STDOUT
 
 
-### Visualize current directory recursively
+## Examples
 
-    $ dirtree -o output.html **/* *
+**Visualize current directory recursively**
 
-make sure you have `globstar` on
+```
+$ dirtree -o output.html **/* *
+```
 
-    $ shopt -s globstar
+  make sure you have `globstar` on
+```
+$ shopt -s globstar
+```
 
-### Visualize files from git ls
+**Visualize files from git ls**
 
-    $ git ls-files | dirtree -o output.html
+```
+$ git ls-files | dirtree -o output.html
+```
 
-### Dirtree prints to standard output if no --output option specified so you can redirect it
+**Dirtree prints to standard output if no --output option specified so you can redirect it**
 
-    $ git ls-files | dirtree > output.html
+```
+$ git ls-files | dirtree > output.html
+```
 
-### visualize only files that include specific word
+**visualize only files that include specific word**
 
-    $ git ls-files | grep keyword | dirtree > output.html
+```
+$ git ls-files | grep keyword | dirtree > output.html
+```
 
-### works with find
+**works with find**
 
-visulaize all files that ends with `rb`
+visualize all files that ends with `rb`
 
-    $ find ~ -name *rb | dirtree > output.html
+```
+$ find ~ -name *rb | dirtree > output.html
+```
 
 
 ## Contributing
