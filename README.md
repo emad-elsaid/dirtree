@@ -54,6 +54,12 @@ $ git ls-files | grep keyword | dirtree > output.html
 
 visualize all files that ends with `rb`
 
+**With ag:silver searcher**
+
+```
+$ ag -l | dirtree -o output.html
+```
+
 ```
 $ find ~ -name *rb | dirtree > output.html
 ```
