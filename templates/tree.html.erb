@@ -38,7 +38,7 @@
 </style>
 <body>
   <div id="tree-container"></div>
-<% if options[:local_depndencies]%>
+<% if options[:local_dependencies]%>
   <% Dir.entries("js").each do |jsfile|%>
     <%= "<script>#{File.read File.join('js',jsfile)}</script>" if jsfile != '.' && jsfile != '..' %>
   <%end%>

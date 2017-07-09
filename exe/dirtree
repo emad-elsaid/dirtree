@@ -18,9 +18,9 @@ OptionParser.new do |opts|
     exit
   end
 
-  opts.on('-l', '--local-depndencies', 'Use saved JavaScript 
+  opts.on('-l', '--local-dependencies', 'Use saved JavaScript 
   libraries instead of downloadign them') do
-    options[:local_depndencies] = true
+    options[:local_dependencies] = true
   end
 
   opts.on('-oFile.html', '--output=File.html', 'Specify a path to write output, if not specified output will be printed to STDOUT') do |value|
