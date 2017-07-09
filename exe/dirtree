@@ -8,29 +8,22 @@ options = {}
 OptionParser.new do |opts|
   opts.banner = 'Usage: dirtree [options]... [file]...'
 
-  opts.on(
-    '-v',
-    '--version',
-    'Print version'
-  ) do
+  opts.on('-v', '--version', 'Print version') do
     puts "Dirtree version #{Dirtree::VERSION}"
     exit
   end
 
-  opts.on(
-    '-h',
-    '--help',
-    'Show this help text'
-  ) do
+  opts.on('-h', '--help', 'Show this help text') do
     puts opts
     exit
   end
 
-  opts.on(
-    '-oFile.html',
-    '--output=File.html',
-    'Specify a path to write output, by default will be printed to STDOUT'
-  ) do |value|
+  opts.on('-l', '--local-depndencies', 'Use saved JavaScript 
+  libraries instead of downloadign them') do
+    options[:local_depndencies] = true
+  end
+
+  opts.on('-oFile.html', '--output=File.html', 'Specify a path to write output, if not specified output will be printed to STDOUT') do |value|
     options[:output] = value
   end
 end.parse!
