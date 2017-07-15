@@ -64,6 +64,9 @@ $ find ~ -name *rb | dirtree > output.html
 $ ag -l | dirtree -o output.html
 ```
 
+## Conjunctions
+
+* [lsgh](https://www.github.com/blazeeboy/lsgh) Draw a tree for a github user/org and open pull requests.
 
 ## Contributing
 
