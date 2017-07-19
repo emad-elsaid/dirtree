@@ -4,7 +4,15 @@ require 'optparse'
 require 'json'
 require 'erb'
 
-options = {}
+templates_dir = File.join(File.dirname(__FILE__), '..', 'templates')
+templates = Dir.open(templates_dir).map do |file|
+  file[0...file.index('.')]
+end.reject(&:empty?)
+
+options = {
+  template: 'tree'
+}
+
 OptionParser.new do |opts|
   opts.banner = 'Usage: dirtree [options]... [file]...'
 
@@ -33,6 +41,14 @@ OptionParser.new do |opts|
   ) do |value|
     options[:output] = value
   end
+
+  opts.on(
+    '-tTemplateName',
+    '--template=TemplateName',
+    'Specify the template name, available templates ' + templates.to_s
+  ) do |value|
+    options[:template] = value
+  end
 end.parse!
 
 files = ARGV.empty? ? STDIN.read.lines : ARGV
@@ -40,8 +56,7 @@ files.map!(&:strip)
 
 root = Dirtree::Node.new('/')
 files.each { |file| root.insert(file.split('/')) }
-templates_dir = File.join(File.dirname(__FILE__), '..', 'templates')
-template_file = File.join(templates_dir, 'tree.html.erb')
+template_file = File.join(templates_dir, options[:template] + '.html.erb')
 template = File.read(File.expand_path(template_file))
 
 tree = root.as_json
