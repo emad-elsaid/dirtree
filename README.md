@@ -21,6 +21,7 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
         -v, --version                    Print version
         -h, --help                       Show this help text
         -o, --output=File.html           Specify a path to write output, if not specified output will be printed to STDOUT
+        -t, --template=TemplateName      Specify the template name, available templates ["circles", "tree"]
 
 
 ## Examples
