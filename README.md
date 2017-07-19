@@ -4,7 +4,11 @@
 
 Dirtree visualizes an list of file paths into a tree graph, printed as HTML page, it can be useful in visualizing a whole project you're working on to start cleanup or organizing your code or spotting large directories or unneeded files.
 
+## Tree template
 ![http://i.imgur.com/cGhx0lG.png](http://i.imgur.com/cGhx0lG.png)
+
+## Circles template
+![http://i.imgur.com/WvfOgCp.png](http://i.imgur.com/WvfOgCp.png)
 
 ## Installation
 
