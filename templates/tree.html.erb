@@ -38,14 +38,10 @@
 </style>
 <body>
   <div id="tree-container"></div>
-<% if options[:local_dependencies]%>
-  <% Dir.entries("js").each do |jsfile|%>
-    <%= "<script>#{File.read File.join('js',jsfile)}</script>" if jsfile != '.' && jsfile != '..' %>
-  <%end%>
-<% else%>
+
 <script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 <script src="http://d3js.org/d3.v3.min.js"></script>
-<% end%>
+
 <script>
   /*Copyright (c) 2013-2016, Rob Schmuecker
   All rights reserved.

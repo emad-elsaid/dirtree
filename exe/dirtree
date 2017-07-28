@@ -3,6 +3,7 @@ require 'dirtree'
 require 'optparse'
 require 'json'
 require 'erb'
+require 'open-uri'
 
 options = {}
 OptionParser.new do |opts|
@@ -18,12 +19,14 @@ OptionParser.new do |opts|
     exit
   end
 
-  opts.on('-l', '--local-dependencies', 'Use saved JavaScript 
-  libraries instead of downloadign them') do
+  opts.on('-l', '--local-dependencies', 'Use saved
+   JavaScript libraries instead of downloadign them') do
     options[:local_dependencies] = true
   end
 
-  opts.on('-oFile.html', '--output=File.html', 'Specify a path to write output, if not specified output will be printed to STDOUT') do |value|
+  opts.on('-oFile.html', '--output=File.html', 'Specify a path
+   to write output, if not specified output will be 
+   printed to STDOUT') do |value|
     options[:output] = value
   end
 end.parse!
@@ -39,6 +42,17 @@ template = File.read(File.expand_path(template_file))
 
 tree = root.as_json
 result = ERB.new(template).result binding
+
+if options[:local_dependencies]
+  scripts = result.scan(/(<script src="(.+)"><\/script>)/)
+  scripts_url = scripts.collect {|res| res[1]}
+  scripts_url.each do |url|
+    injection = '<script>'
+    injection<<open(url).read
+    injection<<'</script>'
+    result.sub!(/(<script src=".+"><\/script>)/) {|m| m=injection}
+  end
+end
 
 if options.key?(:output)
   File.write(options[:output], result)
