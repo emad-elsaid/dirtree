@@ -3,6 +3,7 @@ require 'dirtree'
 require 'optparse'
 require 'json'
 require 'erb'
+require 'open-uri'
 
 templates_dir = File.join(File.dirname(__FILE__), '..', 'templates')
 templates = Dir.open(templates_dir).map do |file|
@@ -35,9 +36,18 @@ OptionParser.new do |opts|
   end
 
   opts.on(
+    '-l',
+    '--local-dependencies',
+    'Use saved JavaScript libraries instead of downloading them'
+  ) do
+    options[:local_dependencies] = true
+  end
+
+  opts.on(
     '-oFile.html',
     '--output=File.html',
-    'Specify a path to write output, by default will be printed to STDOUT'
+    'Specify a path to write output, if
+       not specified output will be printed to STDOUT'
   ) do |value|
     options[:output] = value
   end
@@ -61,6 +71,16 @@ template = File.read(File.expand_path(template_file))
 
 tree = root.as_json
 result = ERB.new(template).result binding
+
+if options[:local_dependencies]
+  result.gsub! %r{(<script src="(.+)"><\/script>)} do
+    injection = '<script>'
+    injection << open($2).read
+    injection << '</script>'
+
+    injection
+  end
+end
 
 if options.key?(:output)
   File.write(options[:output], result)
