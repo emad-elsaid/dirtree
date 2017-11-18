@@ -72,11 +72,11 @@ $ ag -l | dirtree -o output.html
 
 ## Conjunctions
 
-* [lsgh](https://www.github.com/blazeeboy/lsgh) Draw a tree for a github user/org and open pull requests.
+* [lsgh](https://www.github.com/emad-elsaid/lsgh) Draw a tree for a github user/org and open pull requests.
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/blazeeboy/dirtree.
+Bug reports and pull requests are welcome on GitHub at https://github.com/emad-elsaid/dirtree.
 
 ## License
 
