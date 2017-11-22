@@ -1,9 +1,6 @@
 #!/usr/bin/env ruby
 require 'dirtree'
 require 'optparse'
-require 'json'
-require 'erb'
-require 'open-uri'
 
 templates_dir = File.join(File.dirname(__FILE__), '..', 'templates')
 templates = Dir.open(templates_dir).map do |file|
@@ -11,7 +8,9 @@ templates = Dir.open(templates_dir).map do |file|
 end.reject(&:empty?)
 
 options = {
-  template: 'tree'
+  template: 'tree',
+  server: false,
+  local_dependencies: false
 }
 
 OptionParser.new do |opts|
@@ -59,31 +58,34 @@ OptionParser.new do |opts|
   ) do |value|
     options[:template] = value
   end
+
+  opts.on(
+    '-s',
+    '--server',
+    'Run dirtree as a realtime server that updates with every line input'
+  ) do
+    options[:server] = true
+  end
 end.parse!
 
-files = ARGV.empty? ? STDIN.read.lines : ARGV
-files.map!(&:strip)
-
-root = Dirtree::Node.new('/')
-files.each { |file| root.insert(file.split('/')) }
 template_file = File.join(templates_dir, options[:template] + '.html.erb')
-template = File.read(File.expand_path(template_file))
 
-tree = root.as_json
-result = ERB.new(template).result binding
-
+postprocessors = []
 if options[:local_dependencies]
-  result.gsub! %r{(<script src="(.+)"><\/script>)} do
-    injection = '<script>'
-    injection << open($2).read
-    injection << '</script>'
-
-    injection
-  end
+  postprocessors << Dirtree::PostProcessors::DependencyLocalizer.new
 end
 
-if options.key?(:output)
-  File.write(options[:output], result)
+template = Dirtree::Template.new(template_file, postprocessors)
+
+if options[:server]
+  Dirtree::Server.start(template)
 else
-  puts result
+  files = ARGV.empty? ? STDIN.read.lines : ARGV
+  files.each { |file| template.add_file(file) }
+
+  if options.key?(:output)
+    File.write(options[:output], template.output)
+  else
+    puts template.output
+  end
 end

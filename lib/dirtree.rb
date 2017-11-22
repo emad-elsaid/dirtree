@@ -1,2 +1,6 @@
 require 'dirtree/version'
 require 'dirtree/node'
+require 'dirtree/template'
+require 'dirtree/server'
+require 'dirtree/postprocessors/dependency_localizer'
+require 'dirtree/postprocessors/server_script'
