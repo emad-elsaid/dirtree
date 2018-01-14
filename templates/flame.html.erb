@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/gh/spiermar/d3-flame-graph@1.0.4/dist/d3.flameGraph.min.css">
+    <style>
+     html, body{
+         height: 100%;
+         margin: 0;
+         padding: 0;
+         font-size: 14px;
+     }
+    </style>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.10.0/d3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3-tip/0.7.1/d3-tip.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/spiermar/d3-flame-graph@1.0.4/dist/d3.flameGraph.min.js"></script>
+
+  </head>
+  <body>
+
+    <div class="container">
+      <div id="chart">
+      </div>
+    </div>
+    <script>
+     // Uses D3js flamegraph: https://github.com/spiermar/d3-flame-graph
+     var flameGraph = d3.flameGraph()
+                        .width(window.innerWidth)
+                        .cellHeight(18)
+                        .transitionDuration(750)
+                        .transitionEase(d3.easeCubic)
+                        .sort(true)
+                        .title("");
+
+     var tip = d3.tip()
+                 .direction("s")
+                 .offset([8, 0])
+                 .attr('class', 'd3-flame-graph-tip')
+                 .html(function(d) { return "name: " + d.data.name + ", value: " + d.data.value; });
+
+     flameGraph.tooltip(tip);
+
+     function setValue(d) {
+         var val = 0;
+         for( var i=0; i<d.children.length; i++){
+             setValue(d.children[i]);
+             val += d.children[i].value;
+         }
+         d.value = val == 0 ? 1 : val;
+     }
+
+     root = <%= tree.to_json %>;
+     setValue(root)
+     d3.select("#chart")
+       .datum(root)
+       .call(flameGraph);
+    </script>
+
+  </body>
+</html>

@@ -7,6 +7,9 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
 ## Tree template
 ![http://i.imgur.com/cGhx0lG.png](http://i.imgur.com/cGhx0lG.png)
 
+## Flame Graph template
+![https://i.imgur.com/eSTlQNE.png](https://i.imgur.com/eSTlQNE.png)
+
 ## Circles template
 ![http://i.imgur.com/WvfOgCp.png](http://i.imgur.com/WvfOgCp.png)
 
@@ -22,7 +25,7 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
         -h, --help                       Show this help text
         -l, --local-dependencies         Use saved JavaScript libraries instead of downloading them
         -o, --output=File.html           Specify a path to write output, if not specified output will be printed to STDOUT
-        -t, --template=TemplateName      Specify the template name, available templates ["circles", "tree"]
+        -t, --template=TemplateName      Specify the template name, available templates ["circles", "tree", "flame"]
 
 
 ## Examples
