@@ -13,6 +13,9 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
 ## Circles template
 ![http://i.imgur.com/WvfOgCp.png](http://i.imgur.com/WvfOgCp.png)
 
+## Treemap template
+![https://i.imgur.com/quO67Ky.png](https://i.imgur.com/quO67Ky.png)
+
 ## Installation
 
 
