@@ -50,10 +50,8 @@ OptionParser.new do |opts|
     '-s',
     '--screenshot',
     'Get an image screenshot of the directory tree'
-  ) do |value|
-    options[:screenshot] = value
-  end
-
+  )
+  
   opts.on(
     '-oFile.html',
     '--output=File.html',
