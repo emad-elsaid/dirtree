@@ -18,19 +18,17 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
 
 ## Installation
 
-
     $ gem install dirtree
 
 ## Usage
 
     Usage: dirtree [options]... [file]...
-        -v, --version                           Print version
-        -s, --screenshot                      Get an image screenshot of the directory tree
-        -h, --help                                Show this help text
+        -v, --version                    Print version
+        -h, --help                       Show this help text
         -l, --local-dependencies         Use saved JavaScript libraries instead of downloading them
-        -o, --output=File.html            Specify a path to write output, if not specified output will be printed to STDOUT
-        -t, --template=TemplateName      Specify the template name, available templates ["circles", "tree", "flame"]
-
+        -s, --screenshot                 Get an image screenshot of the directory tree
+        -o, --output=File.html           Specify a path to write HTML output
+        -t, --template=TemplateName      Specify the template name, available templates ["tree", "circles", "flame", "treemap"]
 
 ## Examples
 
@@ -40,7 +38,7 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
 $ dirtree -o output.html **/* *
 ```
 
-  make sure you have `globstar` on
+make sure you have `globstar` on
 ```
 $ shopt -s globstar
 ```
