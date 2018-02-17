@@ -4,6 +4,9 @@ require 'optparse'
 require 'json'
 require 'erb'
 require 'open-uri'
+require 'tempfile'
+
+default_file_name = 'output.html'
 
 templates_dir = File.join(File.dirname(__FILE__), '..', 'templates')
 templates = Dir.open(templates_dir).map do |file|
@@ -44,11 +47,18 @@ OptionParser.new do |opts|
   end
 
   opts.on(
+    '-s',
+    '--screenshot',
+    'Get an image screenshot of the directory tree'
+  )
+
+  opts.on(
     '-oFile.html',
     '--output=File.html',
     'Specify a path to write output, if
        not specified output will be printed to STDOUT'
   ) do |value|
+    raise 'missing filename after ‘-o’' if value.empty?
     options[:output] = value
   end
 
@@ -82,8 +92,20 @@ if options[:local_dependencies]
   end
 end
 
-if options.key?(:output)
-  File.write(options[:output], result)
-else
-  puts result
+File.write(options[:output], result) if options.key?(:output)
+
+if options.key?(:screenshot)
+  unless options.key?(:output)
+    tmp = Tempfile.new(default_file_name)
+    tmp.write(result)
+    tmp.close
+  end
+  file = options[:output] || tmp.path
+  %w[chromium chrome google-chrome google-chrome-stable].each do |chrome|
+    screenshot = system(chrome, '--disable-gpu', '--headless',
+                        '--screenshot', file)
+    break if screenshot
+  end
 end
+
+puts result unless option.key?(:output) || option.key?(:screenshot)
