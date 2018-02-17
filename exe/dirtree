@@ -58,7 +58,8 @@ OptionParser.new do |opts|
     'Specify a path to write output, if
        not specified output will be printed to STDOUT'
   ) do |value|
-    options[:output] = value.empty? ? default_file_name : value
+    raise 'missing filename after ‘-o’' if value.empty?
+    options[:output] = value
   end
 
   opts.on(
@@ -91,20 +92,20 @@ if options[:local_dependencies]
   end
 end
 
-if options.key?(:output)
-  File.write(options[:output], result)
-elsif options.key?(:screenshot)
-  tmp = Tempfile.new(default_file_name)
-  tmp.write(result)
-  tmp.close
-else
-  puts result
+File.write(options[:output], result) if options.key?(:output)
+
+if options.key?(:screenshot)
+  unless options.key?(:output)
+    tmp = Tempfile.new(default_file_name)
+    tmp.write(result)
+    tmp.close
+  end
+  file = options[:output] || tmp.path
+  %w[chromium chrome google-chrome google-chrome-stable].each do |chrome|
+    screenshot = system(chrome, '--disable-gpu', '--headless',
+                        '--screenshot', file)
+    break if screenshot
+  end
 end
 
-if options[:screenshot]
-  file = options[:output] || tmp.path
-  system('chromium', '--disable-gpu', '--headless', '--screenshot', file) ||
-    system('chrome', '--disable-gpu', '--headless', '--screenshot', file)
-  # system("firefox","-headless",
-  # "-screenshot",options[:output])
-end
+puts result unless option.key?(:output) || option.key?(:screenshot)
