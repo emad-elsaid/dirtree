@@ -6,6 +6,12 @@ require 'erb'
 require 'open-uri'
 require 'tempfile'
 
+if ARGV.first == 'completion'
+  bash_file = File.join(File.dirname(__FILE__), 'dirtree-completion.bash')
+  puts File.read(bash_file)
+  exit 0
+end
+
 templates_dir = File.join(File.dirname(__FILE__), '..', 'templates')
 templates = Dir.open(templates_dir).map do |file|
   file[0...file.index('.')]
@@ -16,7 +22,14 @@ options = {
 }
 
 OptionParser.new do |opts|
-  opts.banner = 'Usage: dirtree [options]... [file]...'
+  opts.banner = <<-BANNER
+  Usage: dirtree [options]... [file]...
+
+  To get autocompletion functionality
+  run: dirtree completion >> ~/.bashrc
+  Or, dirtree completion > /usr/local/etc/bash_completion.d/dirtree
+
+  BANNER
 
   opts.on(
     '-v',
@@ -107,7 +120,7 @@ if options.key?(:screenshot)
       '--headless',
       '--screenshot',
       '--window-size=1500,1500',
-      "file://" + file
+      'file://' + file
     ) && break
   end
 end

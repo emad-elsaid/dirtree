@@ -23,4 +23,10 @@ Gem::Specification.new do |spec|
 
   spec.add_development_dependency 'bundler', '~> 1.15'
   spec.add_development_dependency 'rake', '~> 10.0'
+
+  spec.post_install_message = <<-GUIDE
+    To get autocompletion functionality
+    run: dirtree completion >> ~/.bashrc
+    Or, dirtree completion > /usr/local/etc/bash_completion.d/dirtree
+    GUIDE
 end
