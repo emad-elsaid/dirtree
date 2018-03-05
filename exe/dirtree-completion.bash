@@ -1,4 +1,4 @@
-# To get autocompletion functionalit
+# To get autocompletion functionality
 # run: dirtree completion >> ~/.bashrc
 # Or, dirtree completion > /usr/local/etc/bash_completion.d/dirtree
 #!/usr/bin/env bash

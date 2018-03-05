@@ -24,7 +24,7 @@ Dirtree visualizes an list of file paths into a tree graph, printed as HTML page
 
     Usage: dirtree [options]... [file]...
     
-    To get autocompletion functionalit
+    To get autocompletion functionality
     run: dirtree completion >> ~/.bashrc
     Or, dirtree completion > /usr/local/etc/bash_completion.d/dirtree
         
