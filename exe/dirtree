@@ -21,8 +21,15 @@ options = {
   template: 'tree'
 }
 
-par = OptionParser.new do |opts|
-  opts.banner = 'Usage: dirtree [options]... [file]...'
+OptionParser.new do |opts|
+  opts.banner = <<-BANNER
+  Usage: dirtree [options]... [file]...
+
+  To get autocompletion functionalit
+  run: dirtree completion >> ~/.bashrc
+  Or, dirtree completion > /usr/local/etc/bash_completion.d/dirtree
+
+  BANNER
 
   opts.on(
     '-v',
