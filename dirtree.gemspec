@@ -6,7 +6,7 @@ Gem::Specification.new do |spec|
   spec.name          = 'dirtree'
   spec.version       = Dirtree::VERSION
   spec.authors       = ['Emad Elsaid']
-  spec.email         = ['blazeeboy@gmail.com']
+  spec.email         = ['emad.elsaid.hamed@gmail.com']
 
   spec.summary       = 'display list of file paths as an interactive tree'
   spec.description   = 'display list of file paths as an interactive tree'
@@ -21,8 +21,8 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ['lib']
 
-  spec.add_development_dependency 'bundler', '~> 1.15'
-  spec.add_development_dependency 'rake', '~> 10.0'
+  spec.add_development_dependency 'bundler'
+  spec.add_development_dependency 'rake'
 
   spec.post_install_message = <<-GUIDE
     To get autocompletion functionality
